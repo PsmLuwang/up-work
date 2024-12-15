@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+		rel="stylesheet">
+	<title>BBQ</title>
+
+	<style>
+		
+		* {
+			font-family: 'Poppins', sans-serif;
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		button:hover {
+			cursor: pointer;
+		}
+
+		::-webkit-scrollbar {
+			display: none;
+		}
+		:root {
+			--dark-primary-color: #DD780C;
+			--primary-color: #FB9334;
+			--light-primary-color: #FFAC4C;
+			--background-color: #FFEACF;
+			--light-background-color: #FFFBF8;
+			--cart-background-color: #E6E6E6;
+			--input-color: #F1E0D5;
+
+			--text-color: rgb(40, 40, 40);
+
+			--tras-02: 0.2s;
+			--tras-03: 0.3s;
+			--tras-04: 0.4s;
+		}
+
+		.header {
+			background: linear-gradient(to right, var(--light-background-color), var(--background-color));
+			width: 100%;
+		}
+		.header > section {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding-inline: 40px;
+			height: 80px;
+		}
+		.companyName {
+			color: var(--primary-color);
+			font-weight: bold;
+			font-size: 1.3rem;
+		}
+		.nav {
+			flex: 1;
+			margin-left: 15px;
+			max-width: 560px;
+			display: flex;
+			justify-content: end;
+			align-items: center;
+			column-gap: 30px;
+			/* background-color: green; */
+			transition: var(--tras-03);
+		}
+		
+		.nav.openSearch {
+			max-width: 760px;
+		}
+		
+		.nav ul {
+			flex: 1;
+			display: flex;
+			justify-content: space-between;
+			column-gap: 10px;
+		}
+		.nav ul li {
+			list-style: none;
+		}
+		.nav li a {
+			color: black;
+			text-decoration: none;
+			font-size: 0.9rem;
+			transition: var(--tras-03);
+		}
+		.nav li a:hover {
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+
+		.nav > div {
+			display: flex;
+			align-items: center;
+		}
+		.search,
+		.cartIcon {
+			position: relative;
+			background-color: var(--light-primary-color);
+			height: 40px;
+			/* width: 40px; */
+			border-radius: 20px;
+			display: flex;
+			justify-content: space-evenly;
+			align-items: center;
+			transition: var(--tras-04) ease-in-out;
+		}
+		.cartIcon  {
+			background-color: transparent;
+		}
+		.search > input {
+			color: black;
+			background: transparent;
+			border: none;
+			outline: none;
+			opacity: 0;
+			width: 0;
+			transition: var(--tras-03);
+		}
+		.search > input::placeholder {
+			color: black;
+		}
+		.nav.openSearch .search > input {
+			opacity: 1;
+			width: 140px;
+			margin-right: 15px; 
+		}
+		.search > i,
+		.cartIcon > i {
+			padding: 12px;
+		}
+
+		.cartIcon > span {
+			background-color: var(--light-primary-color);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 12px;
+			width: 12px;
+			border-radius: 50%;
+			position: absolute;
+			font-size: 0.7rem;
+			right: 5px;
+			top: 8px;
+		}
+
+		.nav > div > button {
+			width: 100px;
+			height: 40px;
+			border: none;
+			border-radius: 20px;
+			font-weight: 500;
+			margin-left: 5px;
+			color: var(--light-background-color);
+			background: var(--primary-color);
+		}
+
+
+
+		/* /////////////////////////// */
+		.header > main {
+			padding: 80px 0;
+			display: flex;
+			align-items: center;
+			justify-content: space-around;
+			/* column-gap: 60px; */
+		}
+		.headerText {
+			z-index: 1;
+			max-width: 600px;
+		}
+		.headerText > div > .welcome {
+			font-weight: bold;
+		}
+		.headerText > div > p {
+			color: var(--text-color);
+			font-size: 0.9rem;
+		}
+		.headerText > div > h4 {
+			font-size: 3rem;
+		}
+		.headerText > div span {
+			color: var(--primary-color);
+		}
+
+		.order {
+			background-color: var(--primary-color);
+			color: var(--light-background-color);
+			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.506);
+			height: 46px;
+			padding-inline: 25px;
+			border: none;
+			font-weight: bold;
+			border-radius: 23px;
+			margin-top: 30px;
+			margin-bottom: 20px;
+		}
+		.headerText> section {
+			display: flex;
+			column-gap: 40px;
+			font-weight: bold;
+			color: var(--text-color);
+		}
+		.headerText > section span {
+			color: gray;
+			font-size: 0.8rem;
+			font-weight: 600;
+		}
+
+
+		.imageBox {
+			position: relative;
+			rotate: 10deg;
+			width: 200px;
+			aspect-ratio: 1/1;
+			border-radius: 21px;
+			overflow: hidden;
+		}
+		.imageBox > img {
+			rotate: -30deg;
+			width: 412px;
+			position: absolute;
+			left: -50px;
+			top: -61px;
+		}
+		.borderImg {
+			background-color: transparent;
+			border-radius: 21px;
+			border: 2px solid var(--light-primary-color);
+		}
+		
+		.bg2 {
+			rotate: 10deg;
+		}
+		.bg1 {
+			rotate: 20deg;
+		}
+
+		.imageParent {
+			position: relative;
+			/* background-color: red; */
+		}
+		.circleBg1,
+		.circleBg2,
+		.circleBg3,
+		.circleBg4,
+		.circleBg5 {
+			position: absolute;
+			background: var(--light-primary-color);
+			aspect-ratio: 1/1;
+			border-radius: 50%;
+		}
+		.circleBg1 {
+			height: 40px;
+			top: -55px;
+			left: -20px;
+		}
+		.circleBg2 {
+			height: 35px;
+			top: -30px;
+			right: -15px;
+		}
+		.circleBg3 {
+			height: 30px;
+			top: 25px;
+			left: -80px;
+		}
+		.circleBg4 {
+			height: 30px;
+			bottom: -10px;
+			left: -65px;
+		}
+		.circleBg5 {
+			height: 25px;
+			bottom: 5px;
+			right: -43px;
+		}
+
+		@media (max-width: 1080px) {
+			
+			.header > section {
+				padding-inline: 20px;
+			}
+			.nav li a {
+				font-size: 0.8rem;
+			}
+			/* ///////////////////// */
+			.header > main {
+				padding: 40px 0;
+				flex-wrap: wrap;
+			}
+			.headerText {
+				max-width: 400px;
+			}
+			.headerText > div > p {
+				font-size: 0.8rem;
+			}
+			.headerText > div > h4 {
+				font-size: 2.3rem;
+			}
+
+			.desktopView {
+				scale: 0.8;
+			}
+		}
+
+		.mCompanyName {
+			display: none;
+		}
+		.sideBarIcon {
+			display: none;
+		}
+		@media (max-width: 810px) {
+			.sideBarIcon {
+				display: block;
+			}
+			.nav > ul {
+				display: none;
+			}
+			.companyName {
+				display: none;
+			}
+			.mCompanyName {
+				display: block;
+				margin-left: 20px;
+			}
+		}
+
+		
+		.mobileView {
+			display: none;
+		}
+
+		@media (max-width: 742px) {
+			.header > section {
+				height: 60px;
+			}
+			.search {
+				height: 30px;
+				/* width: 30px; */
+			}
+			.search > i {
+				padding: 7px;
+			}
+			.nav > div > button {
+				height: 30px;
+				width: 80px;
+			}
+			.companyName {
+				font-size: 1rem;
+			}
+			.header > main {
+				justify-content: start;
+				padding-inline: 20px;
+			}
+			.headerText {
+				max-width: 100%;
+			}
+			.headerText > div > h4 {
+				font-size: 1.8rem;
+			}
+			.headerText > section {
+				font-size: 0.9rem;
+				column-gap: 30px;
+			}
+			.headerText > section span {
+				font-size: 0.7rem;
+			}
+			.desktopView {
+				display: none;
+			}
+			.mobileView {
+				display: flex;
+				justify-content: center;
+				margin-block: 60px;
+			}
+		}
+
+
+		/* ///////////// features ////////////// */
+		.featuresContainer {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding-block: 60px;
+		}
+		.features {
+			color: var(--light-primary-color);
+			text-align: center;
+			font-weight: 600;
+			letter-spacing: 3px;
+			margin-bottom: 15px;
+		}
+		.features ~ h4 {
+			font-size: 1.8rem;
+		}
+		.servicesContainer {
+			display: flex;
+			justify-content: space-evenly;
+			width: 100%;
+			margin-top: 20px;
+			column-gap: 10px;
+			padding-inline: 10px;
+		}
+		.service {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 250px;
+		}
+		.service > div {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 70px;
+			width: 70px;
+			border-radius: 50%;
+		}
+		.serviceA {
+			background: #F4F6EB;
+		}
+		.serviceB {
+			background: #FCF1EF;
+		}
+		.serviceC {
+			background: #FBF1E7;
+		}
+		.service img {
+			height: 50px;
+			aspect-ratio: 1/1;
+			object-fit: contain;
+		}
+		.service p {
+			font-size: 1.1rem;
+			font-family: 'Times New Roman', Times, serif;
+			font-weight: bold;
+			margin-block: 10px;
+		}
+		.service span {
+			font-size: 0.8rem;
+			color: gray;
+			text-align: center;
+		}
+
+		@media (max-width: 742px) {
+			.featuresContainer {
+				padding-block: 30px;
+			}
+			.features ~ h4 {
+				font-size: 1.3rem;
+			}
+		}
+		@media (max-width: 600px) {
+			.service p {
+				font-size: 0.9rem;
+			}
+			.service span {
+				font-size: 0.7rem;
+			}
+		}
+
+
+		/* /////// menu //////// */
+		.menu {
+			background: linear-gradient(to right, var(--background-color), var(--light-background-color));
+			padding-block: 70px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.menu > p {
+			color: var(--light-primary-color);
+			font-weight: 600;
+			letter-spacing: 3px;
+		}
+		.menu > h4 {
+			font-size: 1.8rem;
+			margin-block: 20px;
+		}
+		.menu > div {
+			margin-top: 20px;
+			width: calc(100% - 40px);
+			max-width: 600px;
+			font-size: 0.8rem;
+			color: gray;
+			text-align: center;
+		}
+		@media (max-width: 742px) {
+			.menu {
+				padding-block: 40px;
+			}
+			.menu > h4 {
+				margin-block: 10px;
+			}
+		}
+		@media (max-width: 600px) {
+			.menu {
+				padding-block: 30px;
+			}
+			.menu > h4 {
+				font-size: 1.3rem;
+			}
+			.menu > div {
+				margin-top: 5px;
+			}
+		}
+
+		/* ////////////////////// */
+		.productsContainer {
+			display: flex;
+			justify-content: center;
+		}
+		.productsContainer > div {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+			column-gap: 20px;
+			width: 100%;
+			max-width: 1000px;
+			padding-inline: 20px;
+			margin-block: 80px;
+		}
+		.product {
+			background-color: var(--cart-background-color);
+			border-radius: 50px 8px;
+			padding: 20px;
+			position: relative;
+		}
+		.productImageBox {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-block: 50px;
+		}
+		.productImageBox ~ div {
+			display: flex;
+			justify-content: space-between;
+		}
+		.productImageBox ~ div > span {
+			font-weight: bold;
+		}
+		.product > p {
+			font-size: 0.8rem;
+			color: gray;
+			margin-top: 10px;
+			margin-bottom: 30px;
+		}
+		.ratingStar {
+			/* background-color: red; */
+			position: absolute;
+			bottom: 15px;
+			left: 20px;
+			width: calc(100% - 40px);
+			color: var(--dark-primary-color);
+			display: flex;
+			align-items: center;
+		}
+		.ratingStar > i {
+			font-size: 1.8rem;
+		}
+		.ratingStar > div > i {
+			font-size: 0.9rem;
+		}
+
+		.productImage {
+			/* background-color: red; */
+			height: 105px;
+			width: 105px;
+			rotate: 40deg;
+			position: relative;
+			border-radius: 6px;
+			overflow: hidden;
+			box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.506);
+		}
+		.productImage > img {
+			height: 150px;
+			width: 150px;
+			object-fit: cover;
+			rotate: -40deg;
+			position: absolute;
+			top: -22px;
+			left: -23px;
+		}
+
+		@media (max-width: 860px) {
+			.productsContainer {
+				overflow-x: scroll;
+				
+			}
+			.productsContainer > div {
+				gap: 10px;
+				padding-inline: 15px;
+				margin-block: 40px;
+			}
+			.product > p {
+				margin-bottom: 40px;
+				font-size: 0.8rem;
+			}
+			.productImageBox ~ div > span {
+				font-size: 0.85rem;
+			}
+			.product {
+				padding: 10px;
+				border-radius: 40px 5px;
+				min-width: 250px;
+			}
+			.productImageBox {
+				margin: 30px;
+			}
+			.ratingStar {
+				width: calc(100% - 20px);
+				left: 10px;
+			}
+			
+		}
+
+		/* //////////////////// */
+		.testimonial {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			margin-bottom: 100px;
+		}
+		.testimonialText {
+			padding-inline: 20px;
+			width: 100%;
+			max-width: 600px;
+			text-align: center;
+			color: rgb(75, 75, 75);
+			font-size: 0.9rem;
+		}
+		.testimonial p {
+			color: var(--light-primary-color);
+			font-weight: bold;
+			letter-spacing: 3px;
+		}
+		.testimonial h4 {
+			font-size: 1.4rem;
+			margin-bottom: 15px;
+		}
+		.userIcon {
+			margin-block: 40px;
+		}
+		.userIcon > i {
+			font-size: 6rem;
+		}
+		.testimonialStars {
+			color: var(--dark-primary-color);
+			margin-block: 10px;
+		}
+		.testimonial > h3 {
+			letter-spacing: 1px;
+		}
+		.testimonial > h5 {
+			color: gray;
+			font-weight: 600;
+			letter-spacing: 1px;
+		}
+
+		@media (max-width: 650px) {
+			.testimonial {
+				margin-bottom: 50px;
+				padding-inline: 15px;
+			}
+			.testimonial h4 {
+				font-size: 1rem;
+			}
+			.testimonialText {
+				font-size: 0.8rem;
+			}
+			.userIcon > i {
+				font-size: 4rem;
+			}
+		}
+
+		/* /////////////////// */
+		.contact {
+			background: linear-gradient(to right, var(--light-background-color), var(--background-color));
+			padding-block: 60px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.contact > p {
+			color: var(--light-primary-color);
+			font-weight: 600;
+			letter-spacing: 3px;
+		}
+		.contact > div {
+			width: 100%;
+			max-width: 600px;
+		}
+		.contact > div > h4 {
+			font-size: 1.4rem;
+			font-weight: 600;
+			text-align: center;
+		}
+		.reviewBox {
+			background: var(--input-color);
+			height: 50px;
+			border-radius: 8px;
+			display: flex;
+			justify-content: space-between;
+			margin-top: 20px;
+		}
+		.reviewBox > input {
+			flex: 1;
+			background: transparent;
+			border: none;
+			outline: none;
+			padding-inline: 20px;
+		}
+		.reviewBox > button {
+			width: 100px;
+			border-radius: 8px;
+			border: none;
+			background-color: var(--dark-primary-color);
+			color: var(--light-background-color);
+		}
+
+		@media (max-width: 650px) {
+			.contact {
+				padding-block: 40px;
+				padding-inline: 25px;
+			}
+			.contact > div > h4 {
+				font-size: 1rem;
+			}
+			.reviewBox {
+				height: 40px;
+			}
+			.reviewBox > input {
+				width: calc(100% - 80px);
+			}
+			.reviewBox > button {
+				width: 80px;
+			}
+		}
+
+
+		/* //////////////////////// */
+		footer {
+			margin-block: 50px;
+			display: flex;
+			column-gap: 10px;
+			justify-content: space-evenly;
+			padding-inline: 10px;
+		}
+		footer > div {
+			max-width: 150px;
+		}
+		footer > div > h4,
+		footer i {
+			color: var(--primary-color);
+			margin-bottom: 20px;
+		}
+		footer i {
+			margin-right: 10px;
+		}
+		footer > div > p {
+			color: gray;
+			font-size: 0.8rem;
+			margin-bottom: 20px;
+		}
+
+		.copyright {
+			margin-left: 60px;
+			font-size: 0.8rem;
+			margin-bottom: 60px;
+		}
+		.copyright > i {
+			font-size: 0.7rem;
+		}
+		.copyright > span {
+			font-weight: bold;
+		}
+
+		@media (max-width: 860px) {
+			footer {
+				margin-block: 20px;
+			}
+			.copyright {
+				margin-bottom: 40px;
+			}
+		}
+
+		.sideBar {
+			height: 0;
+			width: 0;
+			padding: 0;
+			color: var(--primary-color);
+			display: flex;
+			align-items: center;
+			position: absolute;
+			left: 20px;
+			top: 60px;
+			border-radius: 10px;
+			z-index: 1;
+			background: radial-gradient(#545657, #373838);
+			backdrop-filter: blur(10px);
+			overflow: hidden;
+			transition: var(--tras-04);
+		}
+		.sideBar.openSideBar {
+			padding: 12px;
+			width: 200px;
+			height: 260px;
+		}
+		
+		.sideBar > ul {
+			list-style: none;
+			display: flex;
+			flex-direction: column;
+			row-gap: 15px;
+			/* display: none; */
+			scale: 0;
+		}
+		.sideBar.openSideBar > ul {
+			scale: 1;
+		}
+		.sideBar li {
+			display: flex;
+			align-items: center;
+			column-gap: 12px;
+			height: 30px;
+		}
+		.sideBar li > div {
+			width: 20px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.sideBar li > a {
+			text-decoration: none;
+			color: white;
+		}
+		.sideBar i {
+			font-size: 1.1rem;
+		}
+		</style>
+</head>
+
+<body>
+	<header class="header">
+		<section>
+			<i class="fa-solid fa-bars sideBarIcon"></i>
+			<span class="companyName">Jenny's BBQ</span>
+			<nav class="nav openSearch1">
+				<ul>
+					<li>
+						<a href="">Home</a>
+					</li>
+					<li>
+						<a href="">About</a>
+					</li>
+					<li>
+						<a href="">Menu</a>
+					</li>
+					<li>
+						<a href="">Testimonial</a>
+					</li>
+					<li>
+						<a href="">Contact</a>
+					</li>
+				</ul>
+
+				<div>
+					<span class="search">
+						<i class="fa-solid fa-magnifying-glass"></i>
+						<input type="text" name="" id="" placeholder="Search...">
+					</span>
+					<span class="cartIcon">
+						<span>2</span>
+						<i class="fa-solid fa-cart-shopping"></i>
+					</span>
+					<button>Sign in</button>
+				</div>
+			</nav>
+		</section>
+		<span class="companyName mCompanyName">Jenny's BBQ</span>
+
+		<main>
+			<section class="headerText">
+				<div>
+					<p class="welcome">Welcome to <span>Jenny's BBQ</span></p>
+					<h4>Where <span>Flavor</span> and <br> Passion Meet.</h4>
+					<p>
+						Our mission is to provide you with the tastiest, juiciest and most mouth-watering barbeque you've ever tasted. We beleive that great BBQ starts with quality ingredients and a whole lot of passion and that's exactly what we bring to the table.  
+					</p>
+				</div>
+
+				<button class="order">Order Food</button>
+				<section>
+					<div>
+						<p>5,000+</p>
+						<span>Customer</span>
+					</div>
+					<div>
+						<p>8,000+</p>
+						<span>Delivery</span>
+					</div>
+					<div>
+						<p>1,000+</p>
+						<span>Ratings</span>
+					</div>
+				</section>
+
+				<div class="mobileView">
+					<section class="imageParent">
+						<div class="circleBg1"></div>
+						<div class="circleBg2"></div>
+						<div class="circleBg3"></div>
+						<div class="circleBg4"></div>
+						<div class="circleBg5"></div>
+		
+						<div class="borderImg bg1">
+							<div class="borderImg bg2">
+								<div class="imageBox">
+									<img src="https://myfoodbook.com.au/sites/default/files/styles/card_c_na_wp/public/recipe_photo/Chicken_Pineapple_Summer_Skewers_web.jpg" alt="">
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</section>
+
+			<section class="imageParent desktopView">
+				<div class="circleBg1"></div>
+				<div class="circleBg2"></div>
+				<div class="circleBg3"></div>
+				<div class="circleBg4"></div>
+				<div class="circleBg5"></div>
+
+				<div class="borderImg bg1">
+					<div class="borderImg bg2">
+						<div class="imageBox">
+							<img src="https://myfoodbook.com.au/sites/default/files/styles/card_c_na_wp/public/recipe_photo/Chicken_Pineapple_Summer_Skewers_web.jpg" alt="">
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+	</header>
+
+	<section class="sideBar">
+		<ul>
+			<li>
+				<div>
+					<i class="fa-solid fa-house"></i>
+				</div>
+				<a href="">Home</a>
+			</li>
+			<li>
+				<div>
+					<i class="fa-regular fa-file-code"></i>
+				</div>
+				<a href="">About</a>
+			</li>
+			<li>
+				<div>
+					<i class="fa-solid fa-table-cells-large"></i>
+				</div>
+				<a href="">Menu</a>
+			</li>
+			<li>
+				<div>
+					<i class="fa-solid fa-message"></i>
+				</div>
+				<a href="">Testimonial</a>
+			</li>
+			<li>
+				<div>
+					<i class="fa-solid fa-id-badge"></i>
+				</div>
+				<a href="">Contact</a>
+			</li>
+		</ul>
+	</section>
+
+	<section class="featuresContainer">
+		<div>
+			<p class="features">FEATURES</p>
+			<h4>Food With A New Passion</h4>
+		</div>
+		<div class="servicesContainer">
+
+			<div class="service">
+				<div class="serviceA">
+					<img src="https://images.emojiterra.com/google/noto-emoji/unicode-16.0/color/512px/1f3e1.png" alt="">
+				</div>
+				<p>Quality Food</p>
+				<span>
+					It can be a very secure path to earn good money and make you very successful creative entrepreneur.
+				</span>
+			</div>
+
+			<div class="service">
+				<div class="serviceB">
+					<img src="https://static.vecteezy.com/system/resources/thumbnails/023/743/925/small/scooter-with-delivery-man-flat-cartoon-character-fast-courier-restaurant-food-service-mail-delivery-service-a-postal-employee-the-determination-of-geolocation-using-electronic-device-free-png.png" alt="">
+				</div>
+				<p>Food Delivery</p>
+				<span>
+					It can be a very secure path to earn good money and make you very successful creative entrepreneur.
+				</span>
+			</div>
+
+			<div class="service">
+				<div class="serviceC">
+					<img src="https://static.vecteezy.com/system/resources/thumbnails/022/917/027/small/yellow-happy-smile-face-emoticon-png.png" alt="">
+				</div>
+				<p>Super Taste</p>
+				<span>
+					It can be a very secure path to earn good money and make you very successful creative entrepreneur.
+				</span>
+			</div>
+
+		</div>
+	</section>
+
+	<section class="menu">
+		<p>MENU</p>
+		<h4>Food Full of treaty Love</h4>
+		<div>
+			<p>
+				There are many things are needed to start the Fast Food Business. You need not only Just Food Stalls with Persons but also specialized equipment, Skills to manage Customers.
+			</p>
+		</div>
+	</section>
+
+	<section class="productsContainer">
+		<div>
+
+			<div class="product">
+				<div class="productImageBox">
+					<div class="productImage">
+						<img src="https://food.unl.edu/sites/unl.edu.ianr.extension.food/files/styles/no_crop_1440/public/media/image/grilled-kabobs.jpg?itok=DJCnFXKg" alt="">
+					</div>
+				</div>
+				
+				<div>
+					<span>Grillcatering</span>
+					<span>5$</span>	
+				</div>
+				<p>
+					Grill catering is a special and unique way to add a delicous and entertaining element to any event. Consider hiring a grill catering service for your next gathering ....
+				</p>
+
+				<div class="ratingStar">
+					<i class="fa-solid fa-square-plus"></i>
+					<div>
+						<i class="fa-solid fa-star"></i>
+						<i class="fa-solid fa-star"></i>
+						<i class="fa-solid fa-star"></i>
+						<i class="fa-solid fa-star"></i>
+						<i class="fa-solid fa-star-half-stroke"></i>
+					</div>
+				</div>
+			</div>
+
+			<div class="product">
+				<div class="productImageBox">
+					<div class="productImage">
+						<img src="https://assets3.thrillist.com/v1/image/1732733/1584x1056/scale;webp=auto;jpeg_quality=60;progressive.jpg" alt="">
+					</div>
+				</div>
+
+				<div>
+					<span>Grilling</span>	
+					<span>5$</span>	
+				</div>
+				<p>
+					There are many things are needed to start the Fast Food Business
+				</p>
+
+				<div class="ratingStar">
+					<i class="fa-solid fa-square-plus"></i>
+					<div>
+						<i class="fa-solid fa-star"></i>
+						<i class="fa-solid fa-star"></i>
+						<i class="fa-solid fa-star"></i>
+						<i class="fa-solid fa-star"></i>
+						<i class="fa-solid fa-star-half-stroke"></i>
+					</div>
+				</div>
+			</div>
+
+			<div class="product">
+				<div class="productImageBox">
+					<div class="productImage">
+						<img src="https://images.squarespace-cdn.com/content/v1/55c9f9bce4b0423ff5aafd5f/1567021489185-HA2D14370LFNQM4GHZBU/48637632788_6d21c93da6_k.jpg?format=1000w" alt="">
+					</div>
+				</div>
+
+				<div>
+					<span>Pizza Catering</span>	
+					<span>5$</span>	
+				</div>
+				<p>
+					Catering services, including group discounts and loyalty programs.
+				</p>
+
+				<div class="ratingStar">
+					<i class="fa-solid fa-square-plus"></i>
+					<div>
+						<i class="fa-solid fa-star"></i>
+						<i class="fa-solid fa-star"></i>
+						<i class="fa-solid fa-star"></i>
+						<i class="fa-solid fa-star"></i>
+						<i class="fa-solid fa-star-half-stroke"></i>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+	<section class="testimonial">
+		<p>TESTIMONIAL</p>
+		<h4>Making Food great again and again</h4>
+		<div class="testimonialText">
+			<span>
+				You need not only Just Food Stalls with Persons but also specialized equipment, Skills to manage Customers, Effective Product catlogues etc to make your.
+			</span>
+		</div>
+		<div class="userIcon">
+			<i class="fa-solid fa-user"></i>
+		</div>
+		<div class="testimonialText">
+			<span>
+				You need not only Just Food Stalls with Persons but also specialized equipment, Skills to manage Customers, Effective Product catlogues etc to make your.
+			</span>
+		</div>
+		<div class="testimonialStars">
+			<i class="fa-solid fa-star"></i>
+			<i class="fa-solid fa-star"></i>
+			<i class="fa-solid fa-star"></i>
+			<i class="fa-solid fa-star"></i>
+			<i class="fa-regular fa-star"></i>
+		</div>
+		<h3>UZAIR ALI AWAN</h3>
+		<h5>UI&UX DESIGNER</h5>
+	</section>
+
+	<section class="contact">
+		<p>CONTACT</p>
+		<div>
+			<h4>Food Stalls with Persons but also specialized equipment, skills to manage.</h4>
+		</div>
+		<div class="reviewBox">
+			<input type="text" name="" id="" placeholder="Enter your message">
+			<button>Send</button>
+		</div>
+	</section>
+
+	<footer>
+		<div>
+			<h4>Jenny's BBQ</h4>
+			<p>
+				Save money and enhance your event with these special offers for pizza
+			</p>
+		</div>
+		<div>
+			<h4>Feature</h4>
+			<p>Menu</p>
+			<p>Promo</p>
+			<p>Contact</p>
+			<p>About us</p>
+		</div>
+		<div>
+			<h4>Company</h4>
+			<p>Landingpage</p>
+			<p>Documentation</p>
+			<p>Referral Program</p>
+		</div>
+		<div>
+			<div>
+				<i class="fa-brands fa-twitter"></i>
+				<i class="fa-brands fa-linkedin"></i>
+				<i class="fa-brands fa-instagram"></i>
+			</div>
+			<p>Follow our social media.</p>
+		</div>
+	</footer>
+
+	<div class="copyright">
+		<i class="fa-regular fa-copyright"></i>
+		Copyright <span>Jenny's BBQ</span>
+	</div>
+
+	<script>
+		const search = document.querySelector('.search');
+		const nav = document.querySelector('.nav');
+		search.addEventListener('click', () => {
+			nav.classList.add('openSearch');
+		})
+		document.addEventListener('click', (event) => {
+            if (!search.contains(event.target)) {
+                nav.classList.remove('openSearch');
+            }
+        });
+
+		const sideBarIcon = document.querySelector('.sideBarIcon');
+		const sideBar = document.querySelector('.sideBar');
+		sideBarIcon.addEventListener('click', () => {
+			sideBar.classList.toggle('openSideBar');
+		})
+		document.addEventListener('click', (event) => {
+			console.log('abc');
+			
+			if (!sideBar.contains(event.target) && (!sideBarIcon.contains(event.target))) {
+				sideBar.classList.remove('openSideBar');
+			}
+		})
+	</script>
+
+</body>
+
+</html>
