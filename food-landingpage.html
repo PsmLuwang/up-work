@@ -1214,6 +1214,18 @@
 				sideBar.classList.remove('openSideBar');
 			}
 		})
+
+		// animation just after load the page
+		async function landingAnimation() {
+			await sleep(2000);
+			nav.classList.add('openSearch');
+			await sleep(2000);
+			nav.classList.remove('openSearch');
+		}
+		function sleep(ms) {
+			return new Promise(resolve => setTimeout(resolve, ms));
+		}
+		landingAnimation();
 	</script>
 
 </body>
