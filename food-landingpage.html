@@ -1210,8 +1210,6 @@
 			sideBar.classList.toggle('openSideBar');
 		})
 		document.addEventListener('click', (event) => {
-			console.log('abc');
-			
 			if (!sideBar.contains(event.target) && (!sideBarIcon.contains(event.target))) {
 				sideBar.classList.remove('openSideBar');
 			}
